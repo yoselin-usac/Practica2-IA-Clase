@@ -1,0 +1,15 @@
+<?php
+
+$j = 1;
+$mov = [];
+for ($a=5-2;$a>=0;$a--){
+    $mov[] = $a.$j;
+    // echo $a.$j."\n";
+}
+// $max = count($mov)-1;
+// echo $max."\n";
+// echo $mov[rand(0,$max)];
+
+$array = array(5, 20, 30, 35, 40,40);
+$maxs=array_keys($array, max($array));
+print_r($maxs);
