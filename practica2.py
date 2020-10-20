@@ -1,4 +1,4 @@
-from flask import Flask, request, flash, url_for
+from flask import Flask, request, render_template
 from flask_cors import CORS
 from markupsafe import escape
 import random
@@ -14,9 +14,13 @@ def op(turno):
         return 0
 
 # Rutas del api
-@app.route('/', methods=['GET'])
+@app.route('/home.html', methods=['GET'])
 def hello_world():
-    return "Hello, cross-origin-world!"
+    # return "Hello, cross-origin-world!"
+    pagetitle = "HomePage"
+    return render_template("index.html",
+                           mytitle=pagetitle,
+                           mycontent="Hello World")
 
 @app.route('/grupo/<int:group_id>', methods=['GET'])
 def getgrupo(group_id):
@@ -24,11 +28,13 @@ def getgrupo(group_id):
 
 @app.route('/data', methods=['GET'])
 def data():
-    # here we want to get the value of user (i.e. ?user=some-value)
-    user = request.args.get('user')
-    return user
+    # here we want to get the value of user (localhost:4000?estado=2222221022222222,turno=1)
+    user = request.args.get('estado')
+    user = request.args.get('turno')
 
-@app.route('/random', methods=['GET'])
+    return 'html'
+
+@app.route('/random.html', methods=['GET'])
 def m_random():
     turno = request.args.get('turno')
     turno = int(turno)
@@ -153,9 +159,12 @@ def m_random():
                             b=b+1
     max = len(mov)-1
     indice = random.randint(0, max)
-    return str(mov[indice])
+    # return str(mov[indice])
+    return render_template("index.html",
+                           mycontent=str(mov[indice]))
 
-@app.route('/heuristica', methods=['GET'])
+
+@app.route('/heuristica.html', methods=['GET'])
 def m_heuristica():
     turno = request.args.get('turno')
     turno = int(turno)
@@ -307,4 +316,6 @@ def m_heuristica():
         b=b+1
 
     print(mov[maxs[0]])
-    return str(mov[maxs[0]])
+    # return str(mov[maxs[0]])
+    return render_template("index.html",
+                           mycontent=str(mov[maxs[0]]))
